@@ -1,23 +1,24 @@
 package com.example.toshiba.pcv_project;
 
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class LogoActivity extends TitleActivity {
+public class TitleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logo);
+        setContentView(R.layout.activity_title);
 
         Button btnDisplayMainActivity = (Button) findViewById(R.id.button_start);
-        btnDisplayMainActivity.setOnClickListener(new View.OnClickListener(){
+        btnDisplayMainActivity.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LogoActivity.this, TakePicture.class);
+                Intent intent = new Intent(TitleActivity.this, LogoActivity.class);
                 startActivity(intent);
             }
         });
@@ -27,7 +28,7 @@ public class LogoActivity extends TitleActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LogoActivity.this, MainActivity.class);
+                Intent intent = new Intent(TitleActivity.this, ManualActivity.class);
                 startActivity(intent);
             }
         });
