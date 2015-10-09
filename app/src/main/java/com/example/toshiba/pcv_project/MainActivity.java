@@ -4,13 +4,26 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 
 public class MainActivity extends LogoActivity {
 
@@ -39,8 +52,53 @@ public class MainActivity extends LogoActivity {
             }
         });
 
+        Button btnSave = (Button) findViewById(R.id.button_save);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View v = (ImageView) findViewById(R.id.imageView);
+                v.setDrawingCacheEnabled(true);
+                Bitmap bm = imageView.getDrawingCache().copy(Bitmap.Config.ARGB_8888,true);
+                v.setDrawingCacheEnabled(false);
+
+                try {
+                    Date d = new Date();
+                    String filename  = (String) DateFormat.format("kkmmss-MMddyyyy"
+                            , d.getTime());
+                    File dir = new File(Environment.getExternalStorageDirectory()
+                            , "/Pictures/" + filename + ".jpg");
+                    FileOutputStream out = new FileOutputStream(dir);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                    Canvas mainCanvas = lineTouchView.canvas;
+                    Canvas c = new Canvas(bm);
+                    Paint paint = new Paint();
+                    paint.setColor(Color.RED);
+                    paint.setStyle(Paint.Style.FILL);
+                    paint.setTextSize(60);
+                    String text = String.format("%.2f%s",lineTouchView.actualValue,"%");
+                    c.drawText(text, 10, c.getHeight() - 60, paint);
+
+
+                    bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                    out.write(bos.toByteArray());
+                    Toast.makeText(getApplicationContext(), "Save card!"
+                            , Toast.LENGTH_SHORT).show();
+
+                    galleryAddPic(Uri.fromFile(dir));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }  catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+
         initInstances();
+
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent returnedIntent){
         imageView = (ImageView)findViewById(R.id.imageView);
@@ -59,6 +117,7 @@ public class MainActivity extends LogoActivity {
         }
 
     }
+
     private String findPath(Uri uri) {
         String imagePath;
 
@@ -106,6 +165,12 @@ public class MainActivity extends LogoActivity {
         }
     }
 
+    private void galleryAddPic(Uri contentUri) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
     public void cal(View view) {
         float l1 = lineTouchView.line1.p;
         float l2 = lineTouchView.line2.p;
@@ -116,7 +181,7 @@ public class MainActivity extends LogoActivity {
 
         float t = (l3 - l1) * 100 / (l2 - l1);
         Log.d("t", String.valueOf(t));
-        btnCal.setText(String.valueOf(t));
+        btnCal.setText(String.format("%.2f%s", t, "%"));
 
         lineTouchView.drawValue(t);
     }

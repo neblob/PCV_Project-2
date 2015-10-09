@@ -52,7 +52,7 @@ public class LineTouchView extends View {
         line3.drawLine(canvas, mY);
 
         if (actualValue != 0.0f) {
-            drawActualValueToCanvas(canvas);
+            //drawActualValueToCanvas(canvas);
         }
 
         this.canvas = canvas;
@@ -63,7 +63,7 @@ public class LineTouchView extends View {
         paint.setColor(Color.RED);
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(60);
-        String text = "" + actualValue + "%";
+        String text = String.format("%.2f%s",actualValue,"%");
         canvas.drawText(text, 10, canvas.getHeight() - 60, paint);
     }
 

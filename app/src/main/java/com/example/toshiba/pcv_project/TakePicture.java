@@ -2,17 +2,24 @@ package com.example.toshiba.pcv_project;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -23,6 +30,7 @@ public class TakePicture extends LogoActivity {
 
     private static final int TAKE_PICTURE = 100;
     private static final int REQUEST_TAKE_PHOTO = 101;
+
 
     Button btnLine1;
     Button btnLine2;
@@ -40,6 +48,52 @@ public class TakePicture extends LogoActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_picture);
+
+        Button btnSave = (Button) findViewById(R.id.button_save);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Bitmap bm = image.getDrawingCache().copy(Bitmap.Config.ARGB_8888, true);
+                Bitmap bm = null;
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), savedOriginalImageUri).copy(Bitmap.Config.ARGB_8888, true);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Date d = new Date();
+                    String filename = (String) DateFormat.format("kkmmss-MMddyyyy"
+                            , d.getTime());
+                    File dir = new File(Environment.getExternalStorageDirectory()
+                            , "/Pictures/" + filename + ".jpg");
+                    FileOutputStream out = new FileOutputStream(dir);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+                    Canvas mainCanvas = lineTouchView.canvas;
+                    Canvas c = new Canvas(bm);
+                    Paint paint = new Paint();
+                    paint.setColor(Color.RED);
+                    paint.setStyle(Paint.Style.FILL);
+                    paint.setTextSize(180);
+                    String text = String.format("%.2f%s", lineTouchView.actualValue, "%");
+                    c.drawText(text, 10, c.getHeight() - 60, paint);
+
+
+                    bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                    out.write(bos.toByteArray());
+                    Toast.makeText(getApplicationContext(), "Save card!"
+                            , Toast.LENGTH_SHORT).show();
+
+                    galleryAddPic(Uri.fromFile(dir));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
 
         initInstances();
     }
@@ -177,7 +231,7 @@ public class TakePicture extends LogoActivity {
 
         float t = (l3 - l1) * 100 / (l2 - l1);
         Log.d("t", String.valueOf(t));
-        btnCal.setText(String.valueOf(t));
+        btnCal.setText(String.format("%.2f%s", t, "%"));
 
         lineTouchView.drawValue(t);
     }
