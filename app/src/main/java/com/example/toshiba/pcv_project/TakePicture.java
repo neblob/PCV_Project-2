@@ -31,6 +31,7 @@ public class TakePicture extends LogoActivity {
     private static final int TAKE_PICTURE = 100;
     private static final int REQUEST_TAKE_PHOTO = 101;
 
+
     Button btnLine1;
     Button btnLine2;
     Button btnLine3;
