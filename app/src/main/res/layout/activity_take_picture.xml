@@ -11,13 +11,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/button"
-        android:id="@+id/frameLayout2">
+        android:id="@+id/frameLayout2"
+        android:layout_above="@+id/button">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:id="@+id/imageView" />
 
         <com.example.toshiba.pcv_project.LineTouchView
@@ -77,12 +76,12 @@
         android:layout_height="wrap_content"
         android:text="Take Picture"
         android:id="@+id/button"
-        android:layout_above="@+id/linearLayout"
+        android:textStyle="bold|normal"
+        android:layout_above="@+id/button_ZoomIn"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textStyle="bold|normal"
-        android:layout_toStartOf="@+id/button_save"
-        android:layout_toLeftOf="@+id/button_save" />
+        android:layout_toLeftOf="@+id/button_save"
+        android:layout_toStartOf="@+id/button_save" />
 
     <Button
         android:layout_width="wrap_content"
@@ -90,9 +89,51 @@
         android:text="Save"
         android:id="@+id/button_save"
         android:textStyle="bold|normal"
-        android:layout_below="@+id/frameLayout2"
-        android:layout_alignRight="@+id/frameLayout2"
-        android:layout_alignEnd="@+id/frameLayout2" />
+        android:layout_above="@+id/button_Down"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ZoomIn"
+        android:id="@+id/button_ZoomIn"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ZoomOut"
+        android:id="@+id/button_ZoomOut"
+        android:layout_above="@+id/linearLayout"
+        android:layout_toRightOf="@+id/button_ZoomIn"
+        android:layout_toEndOf="@+id/button_ZoomIn" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Up"
+        android:id="@+id/button_Up"
+        android:layout_alignTop="@+id/button_ZoomOut"
+        android:layout_toRightOf="@+id/button_ZoomOut"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Down"
+        android:id="@+id/button_Down"
+        android:layout_alignTop="@+id/button_Up"
+        android:layout_toRightOf="@+id/button"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout" />
 
 </RelativeLayout>
 
