@@ -36,6 +36,14 @@ public class MainActivity extends LogoActivity {
     Button btnCal;
     LineTouchView lineTouchView;
 
+    String name;
+    Paint paint;
+    boolean isActive;
+    boolean isShowValue;
+    boolean isRealValue;
+    float y;
+    float p;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,7 @@ public class MainActivity extends LogoActivity {
 
         Button btnSave = (Button) findViewById(R.id.button_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 View v = (ImageView) findViewById(R.id.imageView);
@@ -79,6 +88,23 @@ public class MainActivity extends LogoActivity {
                     String text = String.format("%.2f%s",lineTouchView.actualValue,"%");
                     c.drawText(text, 10, c.getHeight() - 60, paint);
 
+                    Canvas lineCanvas = lineTouchView.canvas;
+                    Canvas b = new Canvas(bm);
+                    paint.setColor(Color.YELLOW);
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setStrokeWidth(5);
+
+                    paint.setAntiAlias(true);
+                    b.drawLine(0, lineTouchView.line1.y, b.getWidth(), lineTouchView.line1.y, paint);
+                    b.drawLine(0, lineTouchView.line2.y, b.getWidth(), lineTouchView.line2.y, paint);
+                    b.drawLine(0, lineTouchView.line3.y, b.getWidth(), lineTouchView.line3.y, paint);
+
+                    paint.setColor(Color.RED);
+                    paint.setStyle(Paint.Style.FILL);
+                    paint.setTextSize(40);
+                    b.drawText("Line 1", 0, lineTouchView.line1.y, paint);
+                    b.drawText("Line 2", 0, lineTouchView.line2.y, paint);
+                    b.drawText("Line 3", 0, lineTouchView.line3.y, paint);
 
                     bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                     out.write(bos.toByteArray());

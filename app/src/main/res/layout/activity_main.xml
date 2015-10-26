@@ -17,7 +17,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:id="@+id/imageView" />
 
         <com.example.toshiba.pcv_project.LineTouchView
@@ -77,11 +76,12 @@
         android:layout_height="wrap_content"
         android:text="Open"
         android:id="@+id/button_open"
-        android:layout_above="@+id/linearLayout"
+        android:textStyle="bold|normal"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textStyle="bold|normal"
-        android:layout_toStartOf="@+id/button_save" />
+        android:layout_toLeftOf="@+id/button_save"
+        android:layout_toStartOf="@+id/button_save"
+        android:layout_above="@+id/linearLayout" />
 
     <Button
         android:layout_width="wrap_content"
@@ -89,8 +89,8 @@
         android:text="Save"
         android:id="@+id/button_save"
         android:textStyle="bold|normal"
-        android:layout_alignRight="@+id/frameLayout2"
-        android:layout_alignEnd="@+id/frameLayout2"
-        android:layout_alignTop="@+id/button_open" />
+        android:layout_alignTop="@+id/button_open"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout" />
 
 </RelativeLayout>
