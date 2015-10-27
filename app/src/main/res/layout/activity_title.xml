@@ -12,36 +12,29 @@
         android:layout_height="match_parent"
         android:src="@drawable/logo_hct"
         android:id="@+id/imageView2"
-        android:layout_above="@+id/button_start"
-        android:layout_alignRight="@+id/button_start"
-        android:layout_alignEnd="@+id/button_start" />
+        android:layout_alignBottom="@+id/button_manual"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:text="เริ่มต้นการทำงาน"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_start"
+        android:src="@drawable/manual"
+        android:id="@+id/imageView_manual"
+        android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="47dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold"
-        android:textSize="20dp" />
+        android:layout_alignParentStart="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="คู่มือการใช้งาน"
-        android:id="@+id/button_manual"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:src="@drawable/power"
+        android:id="@+id/imageView_power"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/imageView_manual"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="bold"
-        android:textSize="20dp" />
+        android:layout_alignParentStart="true" />
+
+
 </RelativeLayout>

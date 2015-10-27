@@ -3,7 +3,7 @@ package com.example.toshiba.pcv_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
 public class LogoActivity extends TitleActivity {
 
@@ -12,8 +12,8 @@ public class LogoActivity extends TitleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
 
-        Button btnDisplayMainActivity = (Button) findViewById(R.id.button_start);
-        btnDisplayMainActivity.setOnClickListener(new View.OnClickListener(){
+        ImageView ImageButtonCamera = (ImageView) findViewById(R.id.imageView_camera);
+        ImageButtonCamera.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -22,8 +22,8 @@ public class LogoActivity extends TitleActivity {
             }
         });
 
-        Button btnDisplayManualActivity = (Button) findViewById(R.id.button_manual);
-        btnDisplayManualActivity.setOnClickListener(new View.OnClickListener() {
+        ImageView ImageButtonFile = (ImageView) findViewById(R.id.imageView_file);
+        ImageButtonFile.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
